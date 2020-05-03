@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+
+  ghost:
+    image: ghost:3.13.4-alpine
+    restart: always
+    ports:
+      -  8080:2368
+    depends_on:
+      - db_os
+    environment:
+      database__client: postgres
+      database__connection__host: db_os
+      database__connection__user: root
+      database__connection__password: Divya7
+      database__connection__database: ghost
+    volumes:
+      - ghost_volume:/var/lib/ghost/content
+
+  db_os:
+    image: postgres:12.2-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: Divya7
+
+volumes:
+  ghost_volume:
